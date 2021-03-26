@@ -91,7 +91,7 @@ I calculated three scenarios:
 # Deploy Report
 The report was made with streamlit and deployed on Heroku
 
-link:
+link: https://house-rocket.herokuapp.com/
 
 
 
