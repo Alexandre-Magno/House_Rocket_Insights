@@ -40,10 +40,19 @@ The IDEs used were Jupyter Notebook and VSCode
 
 ##### H1- Houses with water views are more expensive on average.
 ![image](img/H1.png)
+
+True, Water view houses are on **average $1.130.312,42** more expensive
 ##### H2 Houses with more rooms are more expensive on average.
 ![image](img/H4.png)
+
+The price grows only between 1 and 8 bedrooms.
 ##### H3 Price per type of condition.
 ![image](img/H9.png)
+
+Diff between condition  2 and condition  1  is : 6.29 % 
+Diff between condition  3 and condition  2  is : **61.29 %** 
+Diff between condition  4 and condition  3  is : -2.22 % 
+Diff between condition  5 and condition  4  is : 19.55 %
 
 # Answering the CEO's questions
 - ##### Which houses should the House Rocket CEO buy and at what purchase price?
