@@ -2,6 +2,8 @@
 import streamlit as st
 import pandas    as pd
 import plotly.express as px
+import ipywidgets as widgets
+from ipywidgets import fixed
 
 st.set_page_config(layout="wide")
 #font size
@@ -61,7 +63,7 @@ st.markdown(" <h1 class = 'big-font'; style='text-align: center; color: black;'>
 
 
 
-
+## ########### H1
 aux1 = df[['price','waterfront']].groupby( 'waterfront').mean().reset_index()
 
 fig1 = px.bar(aux1, x ='waterfront', y ='price', template='plotly_dark',
@@ -88,46 +90,40 @@ diff = float(aux1['price'][aux1['waterfront'] == 1] ) - float( aux1['price'][aux
 
 
 st.markdown('<p class="small-font" >  True, Water view houses are on average $1.130.312,42 more expensive  </p>' , unsafe_allow_html = True )
+############# H2 ###########################33
 
+st.markdown( '<p class="big-font"> H2- Houses with 3 floors are more expensive! </p>' , unsafe_allow_html = True)
 
-st.markdown( '<p class="big-font"> H2 - Houses with a construction date less than 1955 are 50% cheaper on average. </p>' , unsafe_allow_html = True)
+aux2 = df[['price','floors']].groupby('floors').median().reset_index()
 
-df['year_1955'] = df.apply( (lambda x: 0 if x['yr_built'] < 1955 else 1 ), axis = 1 )
-
-aux2 = df[['price','year_1955']].groupby( 'year_1955' ).mean().reset_index()
-
-
-fig2 = px.bar(aux2, x ='year_1955', y ='price', template='plotly_dark',
-              labels={'year_1955' : 'Year 1955 ',
-                      'price': 'Price on average'},height = 600)
-
-fig2.update_layout(
-
-    xaxis = dict(
-        tickmode = 'array',
-        tickvals = [0, 1],
-        ticktext = ['Under','Above']
-
-    )
-)
+fig2 = px.bar(aux2, x ='floors', y ='price', template='plotly_dark',
+              labels={'floors' : 'Number of Floors ',
+                      'price': 'Price on average'},height = 600,color='floors',width= 1000)
 
 st.plotly_chart(fig2)
 
-st.markdown('<p class="small-font" >  False, As we can see there is no significant difference </p>' , unsafe_allow_html = True )
+st.markdown( " **False**")
 
-st.markdown( '<p class="big-font"> H3 - The growth in the price of houses year over year is 10%. </p>' , unsafe_allow_html = True)
+st.markdown( "The **highest** is average price is 2.5 Floors")
 
-aux3 = df[['price','yr_built']].groupby( 'yr_built' ).mean().reset_index()
+############## H3 ############################
 
-fig3 = px.line(aux3, x ='yr_built', y ='price', template='plotly_dark',
-              labels={'yr_built' : 'Year that was built ',
-                      'price': 'Price on average'},height = 600, width = 1200)
+st.markdown( '<p class="big-font"> H3 Houses with condition 5 are more expensive on average </p>' , unsafe_allow_html = True)
 
-st.plotly_chart( fig3 )
+aux3 = df[['price','condition']].groupby( 'condition').median().reset_index()
 
-st.markdown('<p class="small-font" >  False! </p>' , unsafe_allow_html = True )
+Fig3 = px.bar(aux3, x ='condition', y ='price', template='plotly_dark',
+              labels={'condition' : 'Type of condition ',
+                      'price': 'Price on average'},height = 600,color='condition',width= 1000)
 
+st.plotly_chart(Fig3)
 
+st.markdown('Diff between condition  2 and condition  1  is : 6.29 % ')
+st.markdown ( 'Diff between condition  3 and condition  2  is : **61.29** % ' )
+st.markdown ('Diff between condition  4 and condition  3  is : -2.22 % ' )
+st.markdown ( 'Diff between condition  5 and condition  4  is : 19.55 %')
+
+################################################## H4 ###########################33
 
 st.markdown( '<p class="big-font"> H4- Houses with more rooms are more expensive on average. </p>' , unsafe_allow_html = True)
 
@@ -146,31 +142,101 @@ fig4.update_layout(
 
 st.plotly_chart( fig4 )
 
-st.markdown('<p class="small-font" >  IT IS TRUE ONLY BETWEEN 1 TO 8 </p>' , unsafe_allow_html = True )
+st.markdown('<p class="small-font" >  the price grows between 1 and 8 </p>' , unsafe_allow_html = True )
+##### CEO Questions
+st.markdown(" <h1 class = 'big-font'; style='text-align: center; color: black;'> Answering the CEO's questions </h1> </p>", unsafe_allow_html=True)
+st.markdown(' - #### Which houses should the House Rocket CEO buy and at what purchase price?')
+st.markdown('The suggestions for houses to be purchased are houses with good conditions (type 3 or greater) and that have their price below the average price of their type of condition.')
+
+st.markdown('- ####  Once the house is owned by the company, what is the best time to sell it and what would be the price of the sale?')
+
+st.markdown('The best time to sell is **Summer and Spring** and the suggested retail price is 30% more expensive than the purchase price.')
+
+st.markdown('I calculated three scenarios: ')
+st.markdown('1 - Expected profit: Average profit of 20% ')
+st.markdown('2- Best scenario: Average profit of 30%  ')
+st.markdown('3- Worst case scenario: Average profit of 15%')
+from PIL import Image
+image = Image.open('img/pe32.png')
+st.image (image)
+
+st.markdown("- #### Should House Rocket do a renovation to increase the sale price? What would be the suggestions for changes? What is the increase in the price given for each retirement option?")
+st.markdown("In H3, we can see that the biggest increase is from condition 2 to 3 with an **increase of 61.29%** So, my suggestion is to buy houses with type 2 condition, renovate and sell at the average price of type 3 condition.")
+st.markdown("I'm guessing that the renovation will cost 20% of the house price.My profit in this case will be the average price of the type 3 condition minus the new price after the reform.")
+st.markdown("I calculated three scenarios:")
+st.markdown("1- Expected profit: Sales price equal to 90% of the average price of condition 3, which generates an average **profit of 77.78%**")
+st.markdown("2- Best scenario: Sales price equal to the average price of condition 3, which generates an average **profit of 97.53%** ")
+st.markdown("3- Worst scenario: Sales price equal to 80% of the average price of condition 3, which generates an average **profit of 58.02%** ")
+
+st.markdown( "#### Total expected profit:")
+
+image2 = Image.open("img/profit.png")
+st.image(image2 )
+
+##################### ITERATIVE MAP ##################
+
+st.markdown(" <h1 class = 'big-font'; style='text-align: center; color: black;'> Map of suggested houses to buy </h1> </p>", unsafe_allow_html=True)
+
+df_buy = pd.read_csv('data/houses_buy.csv')
+df_raw = pd.read_csv('data/houses_buy.csv')
+df_raw = df_raw.reset_index()
+
+df_buy['is_waterfront'] = df_buy['waterfront'].apply(lambda x: 'yes' if x == 1 else 'no')
+
+
+style = { 'description_width' : 'initial'}
 
 
 
-st.markdown( '<p class="big-font"> H5- houses with 3 bathrooms have a MoM (Month over Month) growth of 15% </p>' , unsafe_allow_html = True)
+#iterative buttons
+limit = st.slider(label='Price Limit',
+    value= 450000,
+    min_value= 75000,
+    max_value = 525888,
+    step = 1)
 
-aux51 = df[df['bathrooms'] == 3 ]
-aux5 = aux51[['price','month']].groupby( 'month' ).mean().reset_index()
-
-fig5 = px.line(aux5, x ='month', y ='price', template='seaborn',
-              labels={'month' : 'Month of Year ',
-                      'price': 'Price on average'},height = 600, width = 1200)
-
-
-fig5.update_layout(
-    xaxis = dict(
-        tickmode = 'linear',
-        
-    
-    )
+waterfront = st.selectbox(
+    options = df_buy['is_waterfront'].unique().tolist(),
+    label = 'Water view '
 )
 
-st.plotly_chart( fig5 )
 
-st.markdown('<p class="small-font"; color: red;  >  False </p>' , unsafe_allow_html = True )
+
+df_buy = df_buy[(df_buy['price'] <= limit) & (df_buy['is_waterfront'] == waterfront)][['id','lat','long','price','condition']]
+
+
+
+fig6 = px.scatter_mapbox(df_buy,lat = 'lat',lon = 'long', hover_name='id',
+                        hover_data=['price'],
+                        color_discrete_sequence=['fuchsia'],
+                        zoom=10,
+                        color='condition',
+                        height= 700,width= 1200,size = 'price' ,size_max=10)
+
+fig6.update_layout( mapbox_style = 'open-street-map')
+fig6.update_layout(margin={'r':0, 't':0, 'l':0, 'b':0})
+
+st.plotly_chart(fig6)
+st.markdown('')
+st.markdown('')
+st.markdown('')
+st.markdown('')
+st.markdown('')
+st.markdown('')
+
+show = st.checkbox( label = 'show dataset with all houses')
+
+if show:
+    st.dataframe(df_raw)
+else:
+    st.markdown('')
+
+
+
+
+
+
+
 
 
 

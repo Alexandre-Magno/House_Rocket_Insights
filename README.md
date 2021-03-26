@@ -50,8 +50,11 @@ The price grows only between 1 and 8 bedrooms.
 ![image](img/H9.png)
 
 Diff between condition  2 and condition  1  is : 6.29 % 
+
 Diff between condition  3 and condition  2  is : **61.29 %** 
+
 Diff between condition  4 and condition  3  is : -2.22 % 
+
 Diff between condition  5 and condition  4  is : 19.55 %
 
 # Answering the CEO's questions
